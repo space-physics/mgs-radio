@@ -12,6 +12,7 @@ catch
     continue
 end
 lbl{i} = textscan(fid,'%s %s','Delimiter',' = ','MultipleDelimsAsOne',true);
+fclose(fid);
 %% check if image
 ObjInd = find(strcmp(lbl{i}{1},'OBJECT'),1);
 if isempty(ObjInd), warning(['File ',[path,fn{i}],' is not an image.'])
@@ -37,7 +38,6 @@ stopDateNum(i) = datenum([StopDate{i}{1}(1:10),' ',StopDate{i}{1}(12:19)],31);
 fidbin = fopen([path,fn{i}]);
 imgData{i} = fliplr(fread(fidbin, [NumSamp(i),NumLines(i)], 'int16',0,'b').*ScaleFact(i) + Offset(i));
 fclose(fidbin);
-fclose(fid);
 xBin = 4.88; %Hz, from .lbl description
 xStart = 0; %Hz
 xStop = 2500; %Hz
