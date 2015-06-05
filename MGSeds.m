@@ -16,26 +16,26 @@ catch
     warning(['Label file for ',[path,fn{i}],' does not exist'])
     continue
 end
-lbl{i} = textscan(fid,'%s %s','Delimiter',' = ','MultipleDelimsAsOne',true);
+lbl = textscan(fid,'%s %s','Delimiter',' = ','MultipleDelimsAsOne',true);
 fclose(fid);
 %% check if image
-ObjInd = find(strcmp(lbl{i}{1},'OBJECT'),1);
+ObjInd = find(strcmp(lbl{1},'OBJECT'),1);
 if isempty(ObjInd), warning(['File ',[path,fn{i}],' is not an image.'])
     continue
-elseif ~strcmp(lbl{i}{2}(ObjInd),'IMAGE')
+elseif ~strcmp(lbl{2}(ObjInd),'IMAGE')
     warning(['File ',fn{i},' is not an image.'])
     continue
 end
-LinInd = find(strcmp(lbl{i}{1},'LINES'),1); NumLines(i) = str2double(lbl{i}{2}(LinInd));
-LinInd = find(strcmp(lbl{i}{1},'LINE_SAMPLES'),1); NumSamp(i) = str2double(lbl{i}{2}(LinInd));
-LinInd = find(strcmp(lbl{i}{1},'OFFSET'),1); Offset(i) = str2double(lbl{i}{2}(LinInd));
-LinInd = find(strcmp(lbl{i}{1},'SCALING_FACTOR'),1); ScaleFact(i) = str2double(lbl{i}{2}{LinInd});
+LinInd = find(strcmp(lbl{1},'LINES'),1); NumLines(i) = str2double(lbl{2}(LinInd));
+LinInd = find(strcmp(lbl{1},'LINE_SAMPLES'),1); NumSamp(i) = str2double(lbl{2}(LinInd));
+LinInd = find(strcmp(lbl{1},'OFFSET'),1); Offset(i) = str2double(lbl{2}(LinInd));
+LinInd = find(strcmp(lbl{1},'SCALING_FACTOR'),1); ScaleFact(i) = str2double(lbl{2}{LinInd});
 
-LinInd = find(strcmp(lbl{i}{1},'START_TIME'),1); StartDate{i} = lbl{i}{2}(LinInd);
+LinInd = find(strcmp(lbl{1},'START_TIME'),1); StartDate{i} = lbl{2}(LinInd);
 %[startY(i), startM(i), startD(i),startH(i), startMN(i), startS(i)] = datevec([StartDate{i}{1}(1:10),' ',StartDate{i}{1}(12:19)],31);
 startDateNum(i) = datenum([StartDate{i}{1}(1:10),' ',StartDate{i}{1}(12:19)],31);
 
-LinInd = find(strcmp(lbl{i}{1},'STOP_TIME'),1); StopDate{i} = lbl{i}{2}(LinInd);
+LinInd = find(strcmp(lbl{1},'STOP_TIME'),1); StopDate{i} = lbl{2}(LinInd);
 %[stopY(i), stopM(i), stopD(i),stopH(i), stopMN(i), stopS(i)] = datevec([StopDate{i}{1}(1:10),' ',StopDate{i}{1}(12:19)],31);
 stopDateNum(i) = datenum([StopDate{i}{1}(1:10),' ',StopDate{i}{1}(12:19)],31);
 
