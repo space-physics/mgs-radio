@@ -20,7 +20,7 @@ catch
     warning(['Label file for ',[path,fn{i}],' does not exist'])
     continue
 end
-lbl = textscan(fid,'%s %s','Delimiter',' = ','MultipleDelimsAsOne',true);
+lbl = textscan(fid,'%s %s %*[^\n]','Delimiter',' = ','MultipleDelimsAsOne',true);
 fclose(fid);
 %% check if image
 ObjInd = find(strcmp(lbl{1},'OBJECT'),1);
