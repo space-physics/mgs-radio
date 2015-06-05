@@ -1,0 +1,58 @@
+PDS_VERSION_ID               = PDS3                                           
+RECORD_TYPE                  = FIXED_LENGTH                                   
+RECORD_BYTES                 = 1024                                           
+FILE_RECORDS                 = 300                                            
+^IMAGE                       = "1066M12A.SRI"                                 
+INSTRUMENT_HOST_NAME         = "MARS GLOBAL SURVEYOR"                         
+TARGET_NAME                  = "MARS"                                         
+INSTRUMENT_NAME              = "RADIO SCIENCE SUBSYSTEM"                      
+DATA_SET_ID                  = "MGS-M-RSS-5-SDP-V1.0"                         
+PRODUCT_ID                   = "1066M12A.SRI"                                 
+PRODUCT_RELEASE_DATE         = 2001-10-28                                     
+DESCRIPTION                  = "This file contains a 2-D array in             
+ image format showing power vs frequency and time near a Mars Global          
+ Surveyor radio occultation.  A nominal image is made from 300                
+ 512-point power spectra where the spacing between spectra is 0.2048 s        
+ and the frequency spanned is 2500 Hz (4.88 Hz resolution).  Images           
+ show the spacecraft carrier emerging from occultation (egress) or            
+ disappearing as the spacecraft goes behind the limb (ingress).  Near         
+ the occultation time there may be a weak surface echo racing away from       
+ the carrier to lower frequencies (egress) or coming in from higher           
+ frequencies to merge with the carrier at occultation (ingress).              
+                                                                              
+ The keywords for start and stop time give the beginning and ending of        
+ data recording for the occultation.  For exact times of each spectrum        
+ see the Surface Reflection Table file that corresponds to this image         
+ (same file name except for suffix .SRT).                                     
+                                                                              
+ This image was produced by Dick Simpson of the MGS Radio Science             
+ Team."                                                                       
+                                                                              
+START_TIME                   = 2001-03-07T12:12:00                            
+STOP_TIME                    = 2001-03-07T12:19:00                            
+SOFTWARE_NAME                = "SURF2PDS;2001-03-28"                          
+PRODUCT_CREATION_TIME        = 2001-04-19T21:22:08                            
+PRODUCER_ID                  = "MGS RST"                                      
+                                                                              
+OBJECT                       = IMAGE                                          
+  LINES                        = 300                                          
+  LINE_SAMPLES                 = 512                                          
+  SAMPLE_TYPE                  = MSB_INTEGER                                  
+  SAMPLE_BITS                  = 16                                           
+  UNIT                         = "DECIBEL"                                    
+  OFFSET                       = 0.0                                          
+  SCALING_FACTOR               = 0.01                                         
+  DESCRIPTION                  = "This image contains values of received      
+                                  signal power versus frequency and time      
+                                  in units of decibels relative to            
+                                  one watt. Values can be obtained by         
+                                  multiplying the sample in the image by      
+                                  SCALING_FACTOR and then adding OFFSET.      
+                                  Each line in the image corresponds to       
+                                  one power spectrum.  The first line in      
+                                  the file is the LAST spectrum.  The         
+                                  first point in a line corresponds to        
+                                  the lowest frequency (0 Hz)."               
+END_OBJECT                   = IMAGE                                          
+                                                                              
+END                                                                           

@@ -1,21 +1,23 @@
 clc, clear all, close all, fclose('all');
 %% find .sri files in directory
-d = dir; ii = 1;
-for i = 3:(length(d)-4) % 1 and 2 are dots
-fn = find(strcmp(d(i).name(end-3:end),'.sri'), 1);
-if ~isempty(fn), di(ii) = i; ii = ii+1; end
-end
-fn = {d(di).name};
+d = dir('*.sri'); 
+fn = {d(:).name};
 
 for i = 1:length(fn)
-    try
-fid = fopen([fn{i}(1:end-4),'.lbl']);
-catch, warning(['Label file for ',fn{i},' does not exist']),end
+try
+    fid = fopen([fn{i}(1:end-4),'.lbl']);
+catch
+    warning(['Label file for ',fn{i},' does not exist'])
+end
 lbl{i} = textscan(fid,'%s %s','Delimiter',' = ','MultipleDelimsAsOne',true);
-%check if image
+%% check if image
 ObjInd = find(strcmp(lbl{i}{1},'OBJECT'),1);
-if isempty(ObjInd), warning(['File ',fn{i},' is not an image.']), continue,
-elseif ~strcmp(lbl{i}{2}(ObjInd),'IMAGE'),warning(['File ',fn{i},' is not an image.']), continue,end
+if isempty(ObjInd), warning(['File ',fn{i},' is not an image.'])
+    continue
+elseif ~strcmp(lbl{i}{2}(ObjInd),'IMAGE')
+    warning(['File ',fn{i},' is not an image.'])
+    continue
+end
 LinInd = find(strcmp(lbl{i}{1},'LINES'),1); NumLines(i) = str2double(lbl{i}{2}(LinInd));
 LinInd = find(strcmp(lbl{i}{1},'LINE_SAMPLES'),1); NumSamp(i) = str2double(lbl{i}{2}(LinInd));
 LinInd = find(strcmp(lbl{i}{1},'OFFSET'),1); Offset(i) = str2double(lbl{i}{2}(LinInd));
@@ -29,7 +31,7 @@ LinInd = find(strcmp(lbl{i}{1},'STOP_TIME'),1); StopDate{i} = lbl{i}{2}(LinInd);
 %[stopY(i), stopM(i), stopD(i),stopH(i), stopMN(i), stopS(i)] = datevec([StopDate{i}{1}(1:10),' ',StopDate{i}{1}(12:19)],31);
 stopDateNum(i) = datenum([StopDate{i}{1}(1:10),' ',StopDate{i}{1}(12:19)],31);
 
-% get data
+%% get data
 fidbin = fopen(fn{i});
 imgData{i} = fliplr(fread(fidbin, [NumSamp(i),NumLines(i)], 'int16',0,'b').*ScaleFact(i) + Offset(i));
 fclose(fidbin);
