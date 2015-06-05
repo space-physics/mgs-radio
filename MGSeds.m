@@ -1,18 +1,20 @@
 clc, clear all, close all, fclose('all');
 %% find .sri files in directory
-d = dir('*.sri'); 
+path = 'data/';
+d = dir([path,'*.sri']); 
 fn = {d(:).name};
 
 for i = 1:length(fn)
 try
-    fid = fopen([fn{i}(1:end-4),'.lbl']);
+    fid = fopen([path,fn{i}(1:end-4),'.lbl']);
 catch
-    warning(['Label file for ',fn{i},' does not exist'])
+    warning(['Label file for ',[path,fn{i}],' does not exist'])
+    continue
 end
 lbl{i} = textscan(fid,'%s %s','Delimiter',' = ','MultipleDelimsAsOne',true);
 %% check if image
 ObjInd = find(strcmp(lbl{i}{1},'OBJECT'),1);
-if isempty(ObjInd), warning(['File ',fn{i},' is not an image.'])
+if isempty(ObjInd), warning(['File ',[path,fn{i}],' is not an image.'])
     continue
 elseif ~strcmp(lbl{i}{2}(ObjInd),'IMAGE')
     warning(['File ',fn{i},' is not an image.'])
@@ -32,7 +34,7 @@ LinInd = find(strcmp(lbl{i}{1},'STOP_TIME'),1); StopDate{i} = lbl{i}{2}(LinInd);
 stopDateNum(i) = datenum([StopDate{i}{1}(1:10),' ',StopDate{i}{1}(12:19)],31);
 
 %% get data
-fidbin = fopen(fn{i});
+fidbin = fopen([path,fn{i}]);
 imgData{i} = fliplr(fread(fidbin, [NumSamp(i),NumLines(i)], 'int16',0,'b').*ScaleFact(i) + Offset(i));
 fclose(fidbin);
 fclose(fid);
