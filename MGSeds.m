@@ -1,3 +1,8 @@
+% Michael Hirsch
+% This file reads downloaded .sri files to plot high-level Mars Global Surveyor
+% radio occultation data from
+% http://pds-geosciences.wustl.edu/missions/mgs/rsdata.html
+
 clc, clear all, close all, fclose('all');
 %% find .sri files in directory
 path = 'data/';
