@@ -3,11 +3,15 @@ mgs-utils
 =========
 
 Mars Global Surveyor utilities(for radio occultation) 
+
  .. image:: normal.png
     :alt: MGS occultation bifurcation
 
 This example is simply of reading MGS .sri high-level occultation data and plotting.
 
+The Matlab code is deprecated and doesn't work with Python. A good example of why NOT to use Matlab for messy data files.
+
+The .SRI data is big-endian int16, Fortran order.
 
 Example
 =======
