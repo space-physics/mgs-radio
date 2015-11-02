@@ -2,7 +2,9 @@
 mgs-utils
 =========
 
-Mars Global Surveyor utilities(for radio occultation) ![occultation](normal.png)
+Mars Global Surveyor utilities(for radio occultation) 
+ .. image:: normal.png
+    :alt: MGS occultation bifurcation
 
 This example is simply of reading MGS .sri high-level occultation data and plotting.
 
@@ -10,6 +12,7 @@ This example is simply of reading MGS .sri high-level occultation data and plott
 Example
 =======
 ::
+
     python readmgs.py 
 
  makes the plots for all the .sri, .lbl pairs in the current directory
