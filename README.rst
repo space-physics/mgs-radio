@@ -13,6 +13,13 @@ The Matlab code is deprecated and doesn't work with Python. A good example of wh
 
 The .SRI data is big-endian int16, Fortran order.
 
+Install
+=======
+::
+
+    git clone https://github.com/scienceopen/mgs-utils
+    conda install --file requirements.txt
+
 Example
 =======
 ::
