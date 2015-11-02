@@ -6,10 +6,13 @@ from dateutil.parser import parse
 from pandas import read_csv,DataFrame
 from numpy import fromfile,int16,fliplr,loadtxt,array,arange
 from matplotlib.pyplot import figure
-import seaborn as sns
-sns.color_palette(sns.color_palette("cubehelix"))
-sns.set(context='notebook', style='whitegrid',
-        rc={'image.cmap': 'cubehelix_r'}) #for contour
+try:
+    import seaborn as sns
+    sns.color_palette(sns.color_palette("cubehelix"))
+    sns.set(context='notebook', style='whitegrid',
+            rc={'image.cmap': 'cubehelix_r'}) #for contour
+except:
+    pass
 #
 
 def loopmgs(path,vlim):
@@ -51,6 +54,12 @@ def readmgsoccultation(imgfn):
     return df
 
 def readmgslbl(fn):
+#%% parse the very messy .lbl file to get binary .sri file parameters
+    """
+    this is extremely messy in Matlab, can crash Matlab, and doesn't work in Octave.
+    hence a move to Python. Much faster to write and understand.
+    """
+
     fn = expanduser(fn)
     lbl = read_csv(fn,sep='=',index_col=0,header=None)
     lbl.index = lbl.index.str.strip()
