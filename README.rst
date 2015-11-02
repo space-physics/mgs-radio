@@ -1,0 +1,28 @@
+=========
+mgs-utils
+=========
+
+Mars Global Surveyor utilities(for radio occultation) ![occultation](normal.png)
+
+This example is simply of reading MGS .sri high-level occultation data and plotting.
+
+
+Example
+=======
+::
+    python readmgs.py 
+
+ makes the plots for all the .sri, .lbl pairs in the current directory
+
+
+Finding Data Files:
+===================
+
+`database <http://pds-geosciences.wustl.edu/missions/mgs/rsdata.html>`_
+
+`Cumulative file index <http://pds-geosciences.wustl.edu/mgs/mgs-m-rss-5-sdp-v1/mors_1038/index/cumindex.tab>`_
+
+`Example data used here <http://pds-geosciences.wustl.edu/mgs/mgs-m-rss-5-sdp-v1/mors_1014/>`_
+
+
+
