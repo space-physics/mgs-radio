@@ -15,7 +15,7 @@ Example
 
     python readmgs.py 
 
- makes the plots for all the .sri, .lbl pairs in the current directory
+makes the plots for all the .sri, .lbl pairs in the current directory
 
 
 Finding Data Files:
