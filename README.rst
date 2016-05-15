@@ -9,7 +9,7 @@ Mars Global Surveyor utilities(for radio occultation)
 
 This example is simply of reading MGS .sri high-level occultation data and plotting.
 
-The Matlab code is deprecated and doesn't work with Python. A good example of why NOT to use Matlab for messy data files.
+The Matlab code is deprecated and doesn't work with Octave. A good example of why NOT to use Matlab for messy data files.
 
 The .SRI data is big-endian int16, Fortran order.
 
@@ -17,8 +17,7 @@ Install
 =======
 ::
 
-    git clone https://github.com/scienceopen/mgs-utils
-    conda install --file requirements.txt
+    python setup.py develop
 
 Example
 =======
