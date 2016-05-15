@@ -1,3 +1,8 @@
+.. image:: https://travis-ci.org/scienceopen/mgs-utils.svg?branch=master
+    :target: https://travis-ci.org/scienceopen/mgs-utils
+.. image:: https://coveralls.io/repos/github/scienceopen/mgs-utils/badge.svg?branch=master 
+    :target: https://coveralls.io/github/scienceopen/mgs-utils?branch=master
+
 =========
 mgs-utils
 =========
