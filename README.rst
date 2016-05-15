@@ -28,7 +28,7 @@ Example
 =======
 ::
 
-    python readmgs.py 
+    python PlotMGSoccult.py
 
 makes the plots for all the .sri, .lbl pairs in the current directory
 
