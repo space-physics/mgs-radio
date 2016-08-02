@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-from pathlib import Path
+#!/usr/bin/env python
+from mgsutils import Path
 from numpy.testing import assert_allclose
 from mgsutils.readmgs import loopmgs
 
