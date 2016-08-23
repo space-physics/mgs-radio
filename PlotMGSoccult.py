@@ -1,8 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 from matplotlib.pyplot import show
-from mgsutils.readmgs import loopmgs
+from mgsutils import loopmgs
 from mgsutils.plots import plotoccultation
-
+#
+import seaborn as sns
+sns.color_palette(sns.color_palette("cubehelix"))
+sns.set(context='notebook', style='whitegrid',
+        rc={'image.cmap': 'cubehelix_r'}) #for contour
 
 if __name__ == '__main__':
     from argparse import ArgumentParser
