@@ -1,9 +1,9 @@
 from pathlib import Path
 from datetime import datetime,timedelta
 from dateutil.parser import parse
+import numpy as np
 from pandas import read_csv
 from xarray import DataArray
-from numpy import fromfile,int16,fliplr,loadtxt,array,arange
 
 
 def loopmgs(P):
@@ -33,12 +33,12 @@ def readmgsoccultation(imgfn):
     scale = float(P.at['SCALING_FACTOR',1])
     offs  = float(P.at['OFFSET',1])
 
-    data = fliplr((fromfile(str(imgfn),dtype=int16,count=nSamp*nLine).newbyteorder('B')*scale+offs).reshape(nSamp,nLine,order='F'))
+    data = np.fliplr((np.fromfile(str(imgfn),dtype='int16',count=nSamp*nLine).newbyteorder('B')*scale+offs).reshape(nSamp,nLine,order='F'))
 #%% freq
     fs = 4.88 #step [Hz], from .lbl description
     f0 = 0 #Hz
     fend = 2500 #Hz
-    f = arange(f0,fend-fs,fs)
+    f = np.arange(f0, fend-fs, fs)
 #%% time
     t = getocculttime(srtfn)
 
@@ -65,8 +65,8 @@ def getocculttime(srtfn):
         t0 = parse(f.read().split(',')[0])
     epoch = datetime(t0.year,t0.month,t0.day)
 #%% get all times
-    texp = loadtxt(str(srtfn),skiprows=1,usecols=[0],delimiter=',')
+    texp = np.loadtxt(str(srtfn), skiprows=1, usecols=[0], delimiter=',')
 
-    return epoch + array([timedelta(seconds=s) for s in texp])
-    
+    return epoch + np.array([timedelta(seconds=s) for s in texp])
+
 

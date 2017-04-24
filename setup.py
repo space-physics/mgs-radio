@@ -1,14 +1,27 @@
 #!/usr/bin/env python
-from setuptools import setup
+req = ['nose','python-dateutil','pytz','numpy','pandas','matplotlib','seaborn','xarray']
+# %%
 try:
     import conda.cli
-    conda.cli.main('install','--file','requirements.txt')
+    conda.cli.main('install',*req)
 except Exception as e:
-    print(e)
     import pip
-    pip.main(['install','-r','requirements.txt'])
+    pip.main(['install',*req])
+# %%
+from setuptools import setup  # enables develop
 
 
 setup(name='mgsutils',
-	    packages=['mgsutils']
+	  packages=['mgsutils'],
+      author='Michael Hirsch, Ph.D',
+      description='Model of Earth atmosphere absorption and transmission vs. wavelength and location on Earth.',
+      version='1.0.0',
+      url = 'https://github.com/scivision/mgs-utils',
+      classifiers=[
+      'Intended Audience :: Science/Research',
+      'Development Status :: 4 - Beta',
+      'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+      'Topic :: Scientific/Engineering :: Atmospheric Science',
+      'Programming Language :: Python :: 3.6',
+      ],
 	  )
