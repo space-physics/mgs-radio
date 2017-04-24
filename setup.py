@@ -10,9 +10,8 @@ except Exception as e:
 # %%
 from setuptools import setup  # enables develop
 
-
 setup(name='mgsutils',
-	  packages=['mgsutils'],
+      packages=['mgsutils'],
       author='Michael Hirsch, Ph.D',
       description='Model of Earth atmosphere absorption and transmission vs. wavelength and location on Earth.',
       version='1.0.0',
