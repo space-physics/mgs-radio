@@ -13,7 +13,7 @@ def loopmgs(P):
     elif P.is_file():
         flist = [P]
     else:
-        raise IOError(f'{P} not found')
+        raise FileNotFoundError(f'{P} not found')
 
     data = []
     for f in flist:
@@ -54,7 +54,7 @@ def readmgslbl(fn):
     """
 
     fn = Path(fn).expanduser()
-    lbl = read_csv(fn, sep='=',index_col=0,header=None)
+    lbl = read_csv(fn, sep='=', index_col=0, header=None)
     lbl.index = lbl.index.str.strip()
     return lbl
 
