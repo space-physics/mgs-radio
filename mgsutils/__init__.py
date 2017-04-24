@@ -1,4 +1,9 @@
-from pathlib import Path
+try:
+    from pathlib import Path
+    Path().expanduser()
+except (ImportError,AttributeError):
+    from pathlib2 import Path
+#
 from datetime import datetime,timedelta
 from dateutil.parser import parse
 import numpy as np
@@ -13,7 +18,7 @@ def loopmgs(P):
     elif P.is_file():
         flist = [P]
     else:
-        raise FileNotFoundError(f'{P} not found')
+        raise FileNotFoundError('{} not found'.format(P))
 
     data = []
     for f in flist:
@@ -54,7 +59,7 @@ def readmgslbl(fn):
     """
 
     fn = Path(fn).expanduser()
-    lbl = read_csv(fn, sep='=', index_col=0, header=None)
+    lbl = read_csv(str(fn), sep='=', index_col=0, header=None)
     lbl.index = lbl.index.str.strip()
     return lbl
 
