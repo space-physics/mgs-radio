@@ -1,7 +1,9 @@
 #!/usr/bin/env python
-from mgsutils import Path,loopmgs
+from pathlib import Path
 from numpy.testing import assert_allclose,run_module_suite
-
+#
+from mgsutils import loopmgs
+#
 path=Path(__file__).parents[1]
 
 def test_mgs():

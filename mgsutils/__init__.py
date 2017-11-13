@@ -1,9 +1,4 @@
-try:
-    from pathlib import Path
-    Path().expanduser()
-except (ImportError,AttributeError):
-    from pathlib2 import Path
-#
+from pathlib import Path
 from datetime import datetime,timedelta
 from dateutil.parser import parse
 import numpy as np
@@ -18,7 +13,7 @@ def loopmgs(P):
     elif P.is_file():
         flist = [P]
     else:
-        raise FileNotFoundError('{} not found'.format(P))
+        raise FileNotFoundError(f'{P} not found')
 
     data = []
     for f in flist:
@@ -38,7 +33,8 @@ def readmgsoccultation(imgfn):
     scale = float(P.at['SCALING_FACTOR',1])
     offs  = float(P.at['OFFSET',1])
 
-    data = np.fliplr((np.fromfile(str(imgfn),dtype='int16',count=nSamp*nLine).newbyteorder('B')*scale+offs).reshape(nSamp,nLine,order='F'))
+    data = np.fliplr(
+            (np.fromfile(str(imgfn), dtype='int16', count=nSamp*nLine).newbyteorder('B')*scale + offs).reshape(nSamp,nLine,order='F'))
 #%% freq
     fs = 4.88 #step [Hz], from .lbl description
     f0 = 0 #Hz
@@ -59,7 +55,7 @@ def readmgslbl(fn):
     """
 
     fn = Path(fn).expanduser()
-    lbl = read_csv(str(fn), sep='=', index_col=0, header=None)
+    lbl = read_csv(fn, sep='=', index_col=0, header=None)
     lbl.index = lbl.index.str.strip()
     return lbl
 
@@ -70,7 +66,7 @@ def getocculttime(srtfn):
         t0 = parse(f.read().split(',')[0])
     epoch = datetime(t0.year,t0.month,t0.day)
 #%% get all times
-    texp = np.loadtxt(str(srtfn), skiprows=1, usecols=[0], delimiter=',')
+    texp = np.loadtxt(srtfn, skiprows=1, usecols=[0], delimiter=',')
 
     return epoch + np.array([timedelta(seconds=s) for s in texp])
 

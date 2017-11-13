@@ -1,12 +1,6 @@
 #!/usr/bin/env python
-req = ['nose','python-dateutil','pytz','numpy','pandas','matplotlib','seaborn','xarray','pathlib2']
-# %%
-try:
-    import conda.cli
-    conda.cli.main('install',*req)
-except Exception as e:
-    import pip
-    pip.main(['install'] + req)
+req = ['nose','python-dateutil','pytz','numpy','pandas', 'matplotlib','seaborn','xarray']
+
 # %%
 from setuptools import setup  # enables develop
 
@@ -24,4 +18,6 @@ setup(name='mgsutils',
       'Programming Language :: Python :: 3',
       'Programming Language :: Python',
       ],
+      install_requires=req,
+      python_requires='>=3.6',
 	  )
