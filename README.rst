@@ -1,7 +1,9 @@
 .. image:: https://zenodo.org/badge/24042691.svg
    :target: https://zenodo.org/badge/latestdoi/24042691
+
 .. image:: https://travis-ci.org/scivision/mgs-utils.svg?branch=master
     :target: https://travis-ci.org/scivision/mgs-utils
+
 .. image:: https://coveralls.io/repos/github/scivision/mgs-utils/badge.svg?branch=master 
     :target: https://coveralls.io/github/scivision/mgs-utils?branch=master
 
@@ -29,7 +31,7 @@ Example
 
     python PlotMGSoccult.py
 
-makes the plots for all the .sri, .lbl pairs in the current directory
+makes the plots for all the ``.sri``, ``.lbl`` pairs in the current directory
 
 
 Finding Data Files:
