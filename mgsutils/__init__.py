@@ -1,5 +1,21 @@
+"""
+Copyright 2020 Michael Hirsch, Ph.D.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
 from pathlib import Path
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 from dateutil.parser import parse
 import numpy as np
 from pandas import read_csv
@@ -19,7 +35,8 @@ def loopmgs(P):
     for f in flist:
         data.append(readmgsoccultation(f))
 
-    return data,flist
+    return data, flist
+
 
 def readmgsoccultation(imgfn):
     imgfn = Path(imgfn).expanduser()
@@ -28,27 +45,28 @@ def readmgsoccultation(imgfn):
     srtfn = imgfn.with_suffix('.srt')
 
     P = readmgslbl(lblfn)
-    nSamp = int(P.at['LINE_SAMPLES',1])
-    nLine = int(P.at['LINES',1])
-    scale = float(P.at['SCALING_FACTOR',1])
-    offs  = float(P.at['OFFSET',1])
+    nSamp = int(P.at['LINE_SAMPLES', 1])
+    nLine = int(P.at['LINES', 1])
+    scale = float(P.at['SCALING_FACTOR', 1])
+    offs = float(P.at['OFFSET', 1])
 
     data = np.fliplr(
-            (np.fromfile(str(imgfn), dtype='int16', count=nSamp*nLine).newbyteorder('B')*scale + offs).reshape(nSamp,nLine,order='F'))
-#%% freq
-    fs = 4.88 #step [Hz], from .lbl description
-    f0 = 0 #Hz
-    fend = 2500 #Hz
+        (np.fromfile(str(imgfn), dtype='int16', count=nSamp*nLine).newbyteorder('B')*scale + offs).reshape(nSamp, nLine, order='F'))
+# %% freq
+    fs = 4.88  # step [Hz], from .lbl description
+    f0 = 0  # Hz
+    fend = 2500  # Hz
     f = np.arange(f0, fend-fs, fs)
-#%% time
+# %% time
     t = getocculttime(srtfn)
 
-    df = DataArray(data=data.T, dims=['time','freq'],coords={'time':t,'freq':f})
+    df = DataArray(data=data.T, dims=['time', 'freq'], coords={'time': t, 'freq': f})
 
     return df
 
+
 def readmgslbl(fn):
-#%% parse the very messy .lbl file to get binary .sri file parameters
+    # %% parse the very messy .lbl file to get binary .sri file parameters
     """
     this is extremely messy in Matlab, can crash Matlab, and doesn't work in Octave.
     hence a move to Python. Much faster to write and understand.
@@ -59,15 +77,14 @@ def readmgslbl(fn):
     lbl.index = lbl.index.str.strip()
     return lbl
 
+
 def getocculttime(srtfn):
     srtfn = Path(srtfn).expanduser()
-#%% get epoch date
+# %% get epoch date
     with srtfn.open('r') as f:
         t0 = parse(f.read().split(',')[0])
-    epoch = datetime(t0.year,t0.month,t0.day)
-#%% get all times
+    epoch = datetime(t0.year, t0.month, t0.day)
+# %% get all times
     texp = np.loadtxt(srtfn, skiprows=1, usecols=[0], delimiter=',')
 
     return epoch + np.array([timedelta(seconds=s) for s in texp])
-
-
