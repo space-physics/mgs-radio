@@ -1,4 +1,4 @@
-# mgs-utils
+# mgs-radio
 
 [![image](https://zenodo.org/badge/24042691.svg)](https://zenodo.org/badge/latestdoi/24042691)
 [![image](https://travis-ci.org/space-physics/mgs-utils.svg?branch=master)](https://travis-ci.org/space-physics/mgs-utils)
